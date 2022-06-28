@@ -1,0 +1,44 @@
+#errorCatcher Echo
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head profile="http://www.w3.org/2005/10/profile">
+    <title>Scottish Gliding Center - Weather Test Page</title>
+    <style>
+body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: Arial, Sans-Serif;
+    background-color: var(--background-color);
+}
+    </style>
+  </head>
+<body style="padding:10px">
+<div>
+<h1>Welcome to the Scottish Gliding Centre weather station</h1>
+
+<p><a href="https://weewx.com">WeeWx</a> v$station.version, Skin $SKIN_NAME v$SKIN_VERSION</p>
+<p>Generated on $current.dateTime.format(format_string="%d-%b-%Y at %H:%M%p")</p>
+
+<h2>Windroses</h2>
+<p>
+<img src="media/weather/dayrose.png" class="media" alt="" />
+<img src="media/weather/dayspiral.png" class="media" alt="" />
+</p>
+
+<h2>Charts</h2>
+<p>
+<a href="media/weather/daytempdew-sgu-big.png"><img src="media/weather/daytempdew-sgu.png" title="Click to enlarge"></a>
+<a href="media/weather/daywind-sgu-big.png"><img src="media/weather/daywind-sgu.png" title="Click to enlarge"></a>
+<a href="media/weather/daybarometer-sgu-big.png"><img src="media/weather/daybarometer-sgu.png" title="Click to enlarge"></a>
+<a href="media/weather/dayrain-sgu-big.png"><img src="media/weather/dayrain-sgu.png" title="Click to enlarge"></a>
+</p>
+
+<h2>Weather Statistics</h2>
+<p>Note that '&amp;#176;' is the HTML entity for the degree symbol '&deg;', and will be replaced with it when DokuWiki displays the page.</p>
+<object data="pages/weather/weather_stats_incl.txt" style="width:100%;height:100vh;"></object>
+
+</div>
+</body>
+</html>

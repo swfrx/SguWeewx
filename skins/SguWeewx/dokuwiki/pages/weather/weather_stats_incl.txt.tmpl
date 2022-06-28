@@ -1,0 +1,61 @@
+#errorCatcher Echo
+
+Sunrise Today $almanac.sun.rise, Sunset $almanac.sun.set, generated on $current.dateTime.format(format_string="%d-%b-%Y at %H:%M%p")
+
+
+===== Today =====
+
+^ ^  Minimum  ^  Maximum  ^
+|Temperature  |  **$day.outTemp.min** at $day.outTemp.mintime.format(format_string="%H:%M%p")  |  **$day.outTemp.max** at $day.outTemp.maxtime.format(format_string="%H:%M%p")  |
+|Dew Point  |  **$day.dewpoint.min** at $day.dewpoint.mintime.format(format_string="%H:%M%p")  |  **$day.dewpoint.max** at $day.dewpoint.maxtime.format(format_string="%H:%M%p")  |
+|Wind Speed  |  **$day.windSpeed.min** at $day.windSpeed.mintime.format("%H:%M%p")  |  **$day.windSpeed.max** at $day.windSpeed.maxtime.format(format_string="%H:%M%p")  |
+|Gust Speed  |  **$day.windGust.min** at $day.windGust.mintime.format(format_string="%H:%M%p")  |  **$day.windGust.max** at $day.windGust.maxtime.format(format_string="%H:%M%p")  |
+|Barometer  |  **$day.barometer.min** at $day.barometer.mintime.format(format_string="%H:%M%p")  |  **$day.barometer.max** at $day.barometer.maxtime.format(format_string="%H:%M%p")  |
+|Total Rain  |   **$day.rain.sum**  ||
+
+
+
+===== Past 24 hours =====
+
+^ ^  Minimum  ^  Maximum  ^
+|Temperature  | **$span($day_delta=1).outTemp.min** on $span($day_delta=1).outTemp.mintime.format(format_string="%a at %H:%M%p")  | **$span($day_delta=1).outTemp.max** on $span($day_delta=1).outTemp.maxtime.format(format_string="%a at %H:%M%p")  |
+|Dew Point  | **$span($day_delta=1).dewpoint.min** on $span($day_delta=1).dewpoint.mintime.format(format_string="%a at %H:%M%p")  | **$span($day_delta=1).dewpoint.max** on $span($day_delta=1).dewpoint.maxtime.format(format_string="%a at %H:%M%p")  |
+|Wind Speed  | **$span($day_delta=1).windSpeed.min** on $span($day_delta=1).windSpeed.mintime.format(format_string="%a at %H:%M%p")  | **$span($day_delta=1).windSpeed.max** on $span($day_delta=1).windSpeed.maxtime.format(format_string="%a at %H:%M%p")  |
+|Gust Speed  | **$span($day_delta=1).windGust.min** on $span($day_delta=1).windGust.mintime.format(format_string="%a at %H:%M%p")  | **$span($day_delta=1).windGust.max** on $span($day_delta=1).windGust.maxtime.format(format_string="%a at %H:%M%p")  |
+|Barometer  | **$span($day_delta=1).barometer.min** on $span($day_delta=1).barometer.mintime.format(format_string="%a at %H:%M%p")  | **$span($day_delta=1).barometer.max** on $span($day_delta=1).barometer.maxtime.format(format_string="%a at %H:%M%p")  |
+|Total Rain  |  **$span($day_delta=1).rain.sum**  ||
+
+
+===== Past Week =====
+
+^ ^  Minimum  ^  Maximum  ^
+|Temperature  |  **$span($week_delta=1).outTemp.min** on $span($week_delta=1).outTemp.mintime.format(format_string="%d-%b-%Y at %H:%M%p")  |  **$span($week_delta=1).outTemp.max** on $span($week_delta=1).outTemp.maxtime.format(format_string="%d-%b-%Y at %H:%M%p")  |
+|Dew Point  |  **$span($week_delta=1).dewpoint.min** on $span($week_delta=1).dewpoint.mintime.format(format_string="%d-%b-%Y at %H:%M%p")  |  **$span($week_delta=1).dewpoint.max** on $span($week_delta=1).dewpoint.maxtime.format(format_string="%d-%b-%Y at %H:%M%p")  |
+|Wind Speed  |  **$span($week_delta=1).windSpeed.min** on $span($week_delta=1).windSpeed.mintime.format(format_string="%d-%b-%Y at %H:%M%p")  |  **$span($week_delta=1).windSpeed.max** on $span($week_delta=1).windSpeed.maxtime.format(format_string="%d-%b-%Y at %H:%M%p")  |
+|Gust Speed  |  **$span($week_delta=1).windGust.min** on $span($week_delta=1).windGust.mintime.format(format_string="%d-%b-%Y at %H:%M%p")  |  **$span($week_delta=1).windGust.max** on $span($week_delta=1).windGust.maxtime.format(format_string="%d-%b-%Y at %H:%M%p")  |
+|Barometer  |  **$span($week_delta=1).barometer.min** on $span($week_delta=1).barometer.mintime.format(format_string="%d-%b-%Y on %H:%M%p")  |  **$span($week_delta=1).barometer.max** on $span($week_delta=1).barometer.maxtime.format(format_string="%d-%b-%Y at at %H:%M%p")  |
+|Total Rain  |  **$span($week_delta=1).rain.sum**  ||
+
+===== Past 5 Weeks =====
+
+^ ^  Minimum  ^  Maximum  ^
+|Temperature  |  **$span($week_delta=5).outTemp.min** on $span($week_delta=5).outTemp.mintime.format(format_string="%d-%b-%Y at %H:%M%p")  |  **$span($week_delta=5).outTemp.max** on $span($week_delta=5).outTemp.maxtime.format(format_string="%d-%b-%Y at %H:%M%p")  |
+|Dew Point  |  **$span($week_delta=5).dewpoint.min** on $span($week_delta=5).dewpoint.mintime.format(format_string="%d-%b-%Y at %H:%M%p")  |  **$span($week_delta=5).dewpoint.max** on $span($week_delta=5).dewpoint.maxtime.format(format_string="%d-%b-%Y at %H:%M%p")  |
+|Wind Speed  |  **$span($week_delta=5).windSpeed.min** on $span($week_delta=5).windSpeed.mintime.format(format_string="%d-%b-%Y at %H:%M%p")  |  **$span($week_delta=5).windSpeed.max** on $span($week_delta=5).windSpeed.maxtime.format(format_string="%d-%b-%Y at %H:%M%p")  |
+|Gust Speed  |  **$span($week_delta=5).windGust.min** on $span($week_delta=5).windGust.mintime.format(format_string="%d-%b-%Y at %H:%M%p")  |  **$span($week_delta=5).windGust.max** on $span($week_delta=5).windGust.maxtime.format(format_string="%d-%b-%Y at %H:%M%p")  |
+|Barometer  |  **$span($week_delta=5).barometer.min** on $span($week_delta=5).barometer.mintime.format(format_string="%d-%b-%Y on %H:%M%p")  |  **$span($week_delta=5).barometer.max** on $span($week_delta=5).barometer.maxtime.format(format_string="%d-%b-%Y at at %H:%M%p")  |
+|Total Rain  |  **$span($week_delta=5).rain.sum**  ||
+
+
+===== Past Year =====
+
+^ ^  Minimum  ^  Maximum  ^
+|Temperature  |  **$span($day_delta=365).outTemp.min** on $span($day_delta=365).outTemp.mintime.format(format_string="%d-%b-%Y at %H:%M%p")  |  **$span($day_delta=365).outTemp.max** on $span($day_delta=365).outTemp.maxtime.format(format_string="%d-%b-%Y at %H:%M%p")  |
+|Dew Point  |  **$span($day_delta=365).dewpoint.min** on $span($day_delta=365).dewpoint.mintime.format(format_string="%d-%b-%Y at %H:%M%p")  |  **$span($day_delta=365).dewpoint.max** on $span($day_delta=365).dewpoint.maxtime.format(format_string="%d-%b-%Y at %H:%M%p")  |
+|Wind Speed  |  **$span($day_delta=365).windSpeed.min** on $span($day_delta=365).windSpeed.mintime.format(format_string="%d-%b-%Y at %H:%M%p")  |  **$span($day_delta=365).windSpeed.max** on $span($day_delta=365).windSpeed.maxtime.format(format_string="%d-%b-%Y at %H:%M%p")  |
+|Gust Speed  |  **$span($day_delta=365).windGust.min** on $span($day_delta=365).windGust.mintime.format(format_string="%d-%b-%Y at %H:%M%p")  |  **$span($day_delta=365).windGust.max** on $span($day_delta=365).windGust.maxtime.format(format_string="%d-%b-%Y at %H:%M%p")  |
+|Barometer  |  **$span($day_delta=365).barometer.min** on $span($day_delta=365).barometer.mintime.format(format_string="%d-%b-%Y on %H:%M%p")  |  **$span($day_delta=365).barometer.max** on $span($day_delta=365).barometer.maxtime.format(format_string="%d-%b-%Y at at %H:%M%p")  |
+|Total Rain  |  **$span($day_delta=365).rain.sum**  ||
+
+===== NOAA Yearly & Monthly Summaries =====
+$noaa_table
