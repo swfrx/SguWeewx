@@ -5,7 +5,7 @@ from weecfg.extension import ExtensionInstaller
 
 #-------- extension info -----------
 
-VERSION      = "0.2"
+VERSION      = "1.0"
 NAME         = 'SguWeewx'
 DESCRIPTION  = 'A highly bespoke skin used to interface the SGU weather station with the Pilot\'s Wiki'
 AUTHOR       = "Sally Woolrich"
@@ -30,17 +30,26 @@ class SguWeewxInstaller(ExtensionInstaller):
                         'skin': 'SguWeewx',
                         'enable' : 'True',
                         'lang': 'en',
-#                        'HTML_ROOT': 'dokuwiki',
-#                        'unit_system': 'metricwx'
                     },
                     'PolarWindPlot': {
                         'skin': 'PolarWindPlot',
                         'enable' : 'True',
-#                        'HTML_ROOT': 'media/weather',
-#                        'lang': 'en',
-#                        'unit_system': 'metricwx'
-                    }
-                }
+                    },
+                    'Defaults': {
+                        'Units': {
+                            'Groups': {
+                                'group_altitude': 'meter',
+                                'group_pressure': 'hPa',
+                                'group_rain': 'mm',
+                                'group_rainrate': 'mm_per_hour',
+                                'group_temperature': 'degree_C',
+                                'group_speed': 'knot',
+                                'group_speed2': 'knot2',
+                                'unused': 'unused',
+                            },
+                        },
+                    },
+                },
             },
             files=[('bin/user', ['bin/user/sguweewx.py', 'bin/user/polarwindplot.py']),
                 ('skins/SguWeewx',
