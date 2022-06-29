@@ -50,9 +50,6 @@ import math
 import os.path
 import time
 
-#-----------
-import pprint
-
 # first try to import from PIL then revert to python-imaging if an error
 try:
     from PIL import Image, ImageColor, ImageDraw
@@ -157,12 +154,6 @@ class PolarWindPlotGenerator(weewx.reportengine.ReportGenerator):
 
         # get the config options for our plots
         self.polar_dict = self.skin_dict['PolarWindPlotGenerator']
-#xx-------------
-        pp = pprint.PrettyPrinter(stream=open("/home/pi/polar_dict.txt",'w'), sort_dicts=False)
-        pp.pprint(self.polar_dict )
-        pp1 = pprint.PrettyPrinter(stream=open("/home/pi/skin_dict.txt",'w'), sort_dicts=False)
-        pp1.pprint(self.skin_dict )
-#xx-------------
         # get the formatter and converter to be used
         self.formatter = weewx.units.Formatter.fromSkinDict(self.skin_dict)
         self.converter = weewx.units.Converter.fromSkinDict(self.skin_dict)
