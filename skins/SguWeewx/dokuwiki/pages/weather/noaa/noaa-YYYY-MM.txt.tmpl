@@ -17,6 +17,7 @@
 #else
 #set $Rain="%6.2f"
 #end if
+<code>
                    MONTHLY CLIMATOLOGICAL SUMMARY for $month_name $year_name
 
 
@@ -39,4 +40,4 @@ $day.dateTime.format($D)
 #end for
 ---------------------------------------------------------------------------------------
     $month.outTemp.avg.nolabel($Temp,$NONE) $month.outTemp.max.nolabel($Temp,$NONE)    $month.outTemp.maxtime.format($D) $month.outTemp.min.nolabel($Temp,$NONE)    $month.outTemp.mintime.format($D) $month.heatdeg.sum.nolabel($Temp,$NONE) $month.cooldeg.sum.nolabel($Temp,$NONE) $month.rain.sum.nolabel($Rain,$NONE) $month.wind.avg.nolabel($Wind,$NONE) $month.wind.max.nolabel($Wind,$NONE)    $month.wind.maxtime.format($D) $month.wind.vecdir.nolabel($Dir)
-    
+ </code>
