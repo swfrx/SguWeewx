@@ -65,7 +65,7 @@ class getData(SearchList):
         noaa_namespace = self.generator.skin_dict['Extras'].get(
             'sguweewx.noaa_namespace', 'weather:noaa:')
         noaa_year = self.generator.skin_dict['Extras'].get(
-            'sguweewx.noaa_year', 'noaa-2[0-9][0-9][0-9].txt' )
+            'sguweewx.noaa_year', 'noaa-2[0-9][0-9][0-9]' )
 
 # Month number & short name
         months=[('01','Jan'),('02','Feb'),('03','Mar'),('04','Apr'),('05','May'),('06','Jun'),('07','Jul'),('08','Aug'),('09','Sep'),('10','Oct'),('11','Nov'),('12','Dec')]
@@ -100,7 +100,7 @@ class getData(SearchList):
 # Append the link to each month's file plus the short month name,
 # or a cell with just a hyphen if the month file doesn't exist
                     for month in months:
-                        month_file = yyyy + '-' + month[0] + '.txt'
+                        month_file = yyyy + '-' + month[0]
                         month_name = month[1]
                         row = row + self.do_link ( noaa_namespace, month_file, month_name )
     
