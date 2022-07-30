@@ -62,8 +62,8 @@ class getData(SearchList):
 # Debugging?
         weewx.debug = int(self.generator.config_dict.get('debug', 0))
 
-        noaa_files = self.generator.skin_dict['Extras'].get(
-            'sguweewx.noaa_files', '/home/weewx/public_html/dokuwiki/pages/weather/noaa' )
+        noaa_directory = self.generator.skin_dict['Extras'].get(
+            'sguweewx.noaa_directory', '/home/weewx/public_html/dokuwiki/pages/weather/noaa' )
         noaa_namespace = self.generator.skin_dict['Extras'].get(
             'sguweewx.noaa_namespace', 'weather:noaa:')
         noaa_year = self.generator.skin_dict['Extras'].get(
@@ -76,13 +76,13 @@ class getData(SearchList):
 # If this is a new installation the directory might not exist
 # so skip the following
         try:
-            os.chdir( noaa_files )
+            os.chdir( noaa_directory )
         
 # Get names of the year files
             years =  glob.glob( noaa_year )
 
             if len(years) == 0:
-                noaa_table = 'No NOAH year files found ' + noaa_files
+                noaa_table = 'No NOAH year files found in ' + noaa_directory
             else:
 
 # We have to return the table as just one string variable which will be built
@@ -108,7 +108,7 @@ class getData(SearchList):
     
                     noaa_table = noaa_table + row + os.linesep
         except:
-            noaa_table = 'NOAA directory ' + noaa_files + ' does not exist'
+            noaa_table = 'NOAA directory ' + noaa_directory + ' does not exist'
 
 # all years processed - finished - build the search list extension
         search_list_extension = {
@@ -119,5 +119,4 @@ class getData(SearchList):
             }
 
         # Finally, return our extension as a list:
-        return [search_list_extension]
-        
+        return [search_list_extension] 
