@@ -36,10 +36,12 @@ class getData(SearchList):
         SearchList.__init__(self, generator)
 
 # Function to return DokuWiki-style table cell plus delimiter
+# Needs to strip '.txt' from filename
     @staticmethod
     def do_link( noaa_namespace, file, text ):
         if os.path.isfile(file):
-            return '[[' +  noaa_namespace  + file + '|' + text + ']]|'
+            link = os.path.splitext( file )[0]
+            return '[[' + noaa_namespace + link + '|' + text + ']]|'
         else:
             return '  -  |'
 
@@ -49,10 +51,10 @@ class getData(SearchList):
         to the NOAA Yearly & Monthly summaries
 
         Variables:
-            noaa_files		where the NOAA summary files are
+            noaa_directory  where the NOAA summary files are
             noaa_namespace	the DokuWiki namespace they will be in
             noaaa_year		the pattern to match for the names of the year summary files
-                month file namess are assuming to have '-mm' ammended to the year number
+                month file names are assuming to have '-mm' ammended to the year number
 
             these all have defaults but can be overriden in [Extras][sguweewx]
         """
@@ -65,7 +67,7 @@ class getData(SearchList):
         noaa_namespace = self.generator.skin_dict['Extras'].get(
             'sguweewx.noaa_namespace', 'weather:noaa:')
         noaa_year = self.generator.skin_dict['Extras'].get(
-            'sguweewx.noaa_year', 'noaa-2[0-9][0-9][0-9]' )
+            'sguweewx.noaa_year', 'noaa-2[0-9][0-9][0-9].txt' )
 
 # Month number & short name
         months=[('01','Jan'),('02','Feb'),('03','Mar'),('04','Apr'),('05','May'),('06','Jun'),('07','Jul'),('08','Aug'),('09','Sep'),('10','Oct'),('11','Nov'),('12','Dec')]
@@ -89,7 +91,7 @@ class getData(SearchList):
                 row = ''
         
 # process years from current to oldest
-            for year in sorted(years, reverse = True):
+                for year in sorted(years, reverse = True):
                     yyyy = year.split('.')[0]
                     year_name = yyyy.split('-')[1] 
         
@@ -100,7 +102,7 @@ class getData(SearchList):
 # Append the link to each month's file plus the short month name,
 # or a cell with just a hyphen if the month file doesn't exist
                     for month in months:
-                        month_file = yyyy + '-' + month[0]
+                        month_file = yyyy + '-' + month[0] + '.txt'
                         month_name = month[1]
                         row = row + self.do_link ( noaa_namespace, month_file, month_name )
     
@@ -110,10 +112,10 @@ class getData(SearchList):
 
 # all years processed - finished - build the search list extension
         search_list_extension = {
-            'noaa_table'    : noaa_table,
-            'noaa_files'    : noaa_files,
-            'noaa_namespace': noaa_namespace,
-            'noaa_year'     : noaa_year
+            'noaa_table'     : noaa_table,
+            'noaa_directory' : noaa_directory,
+            'noaa_namespace' : noaa_namespace,
+            'noaa_year'      : noaa_year
             }
 
         # Finally, return our extension as a list:
