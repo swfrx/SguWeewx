@@ -1,7 +1,7 @@
 # SguWeewx
 Bespoke skin to produce files &amp; images from WeeWx to go into the [SGU Pilot's Wiki](https://pilots.scottishglidingcentre.co.uk/), which is created using [DokuWiki](https://www.dokuwiki.org/)
 
-The aim of this skin is to make it as simple as possible to install [WeeWx](https://weewx.com/) and have it produce the required output in a structure that can be FTP's to the Pilot's Wiki server.
+The aim of this skin is to make it as simple as possible to install [WeeWx](https://weewx.com/) and have it produce the required output in a structure that can be copied using FTP to the Pilot's Wiki server.
 
 The file & image names, and paths, are all specific to the [Weather Stations](https://pilots.scottishglidingcentre.co.uk/weather/weather_station) and [Weather Statistics](https://pilots.scottishglidingcentre.co.uk/weather/weather_stats) pages.
 
