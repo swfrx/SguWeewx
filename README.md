@@ -1,13 +1,16 @@
 # SguWeewx
 Bespoke skin to produce files &amp; images from [WeeWx](https://weewx.com/) to go into the [SGU Pilot's Wiki](https://pilots.scottishglidingcentre.co.uk/), which is created using [DokuWiki](https://www.dokuwiki.org/)
 
-The aim of this skin is to make it as simple as possible to install [WeeWx](https://weewx.com/) and have it produce the required output in a structure that can be copied using FTP to the Pilot's Wiki server.
+The aim of this skin is to make it as simple as possible to install WeeWx and have it produce the required output in a structure that can be copied using FTP to the Pilot's Wiki server.
 
 The file & image names, and paths, are all specific to the [SGC Weather Station](https://pilots.scottishglidingcentre.co.uk/weather/weather_station) and [SGC Weather Statistics](https://pilots.scottishglidingcentre.co.uk/weather/weather_stats) pages.
 
 The skin can be downloaded from https://github.com/swfrx/SguWeewx/releases and is installed in the usual way with ['wee_extension'](https://weewx.com/docs/utilities.htm#wee_extension_utility).  
 
   * Weewx must be installed with [setup.py](https://weewx.com/docs/setup.htm) into the default location of ``/home/weewx``
+  * Turn off the default 'Seasonsreport'
+  * The Dokuwiki server needs a user for FTP that the WeeWx platform can connect to, and with a home directory that is the Dokuwiki ``data`` folder, which contains the ``media`` and ``pages`` directories
+  * The [FTP](https://weewx.com/docs/usersguide.htm#If_the_server_is_on_a_different_machine) or [RSYNC](https://weewx.com/docs/usersguide.htm#If_the_server_is_on_a_different_machine) section needs configuring with the correct server, path, user and password as per the Dokuwiki server.  The home directory should be where the ``dokuwiki`` installation is e.g.  
   * This skin places it's output in ``/home/weewx/public_html/sguweewx/dokuwiki``
   * Images are generated in the subdirectory ``media/weather``
   * NOAA yearly & monthly summaries are generated in the subdirectory ``pages/weather/noaa`` 
