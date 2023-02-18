@@ -11,10 +11,8 @@ The skin can be downloaded from https://github.com/swfrx/SguWeewx/releases and i
   * Turn off the default 'Seasonsreport'
   * The Dokuwiki server needs a user for FTP that the WeeWx platform can connect to, and with a home directory that is the [Dokuwiki data](https://www.dokuwiki.org/devel:dirlayout) directory, which contains the ``media`` and ``pages`` directories
   * The [FTP](https://weewx.com/docs/usersguide.htm#If_the_server_is_on_a_different_machine) or [RSYNC](https://weewx.com/docs/usersguide.htm#If_the_server_is_on_a_different_machine) section needs configuring with the correct server, path, user and password as per the Dokuwiki server.  The home directory should be where the ``dokuwiki`` installation is e.g.  
-  * This skin places it's output in ``/home/weewx/public_html/sguweewx/dokuwiki``
-  * Images are generated in the subdirectory ``media/weather``
-  * NOAA yearly & monthly summaries are generated in the subdirectory ``pages/weather/noaa`` 
-  * No additional configuration should be required
+  * This skin places it's output in ``/home/weewx/public_html/sguweewx/dokuwiki`` from where new and altered content is copied to the main Dokuwiki server
+  * No WeeWx configuration beyond that mentioned above should be required
 
 Dokuwiki Notes:
   * The correct namespace for the NOAA files in DokuWiki is ``weather:noaa:``  
