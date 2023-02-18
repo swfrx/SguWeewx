@@ -1,11 +1,11 @@
 # installer for the 'SguWeewx' skin
-# June 2022, Sally Woolrich
+# February 2023, Sally Woolrich
 
 from weecfg.extension import ExtensionInstaller
 
 #-------- extension info -----------
 
-VERSION      = "1.0"
+VERSION      = "1.1"
 NAME         = 'SguWeewx'
 DESCRIPTION  = 'A highly bespoke skin used to interface the SGU weather station with the Pilot\'s Wiki'
 AUTHOR       = "Sally Woolrich"
