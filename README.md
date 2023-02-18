@@ -3,7 +3,7 @@ Bespoke skin to produce files &amp; images from [WeeWx](https://weewx.com/) to g
 
 The aim of this skin is to make it as simple as possible to install [WeeWx](https://weewx.com/) and have it produce the required output in a structure that can be copied using FTP to the Pilot's Wiki server.
 
-The file & image names, and paths, are all specific to the [Weather Stations](https://pilots.scottishglidingcentre.co.uk/weather/weather_station) and [Weather Statistics](https://pilots.scottishglidingcentre.co.uk/weather/weather_stats) pages.
+The file & image names, and paths, are all specific to the [Weather Station](https://pilots.scottishglidingcentre.co.uk/weather/weather_station) and [Weather Statistics](https://pilots.scottishglidingcentre.co.uk/weather/weather_stats) pages.
 
 The skin can be downloaded from https://github.com/swfrx/SguWeewx/releases and is installed in the usual way with ['wee_extension'](https://weewx.com/docs/utilities.htm#wee_extension_utility).  
 
