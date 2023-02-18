@@ -54,6 +54,8 @@ class SguWeewxInstaller(ExtensionInstaller):
             files=[('bin/user', ['bin/user/sguweewx.py', 'bin/user/polarwindplot.py']),
                 ('skins/SguWeewx',
                  ['skins/SguWeewx/font/FreeMonoBold.ttf',
+                  'skins/SguWeewx/font/OpenSans-Regular.ttf',
+                  'skins/SguWeewx/font/OpenSans-Bold.ttf',
                   'skins/SguWeewx/lang/en.conf',
                   'skins/SguWeewx/dokuwiki/pages/weather/noaa/noaa-YYYY.txt.tmpl',
                   'skins/SguWeewx/dokuwiki/pages/weather/noaa/noaa-YYYY-MM.txt.tmpl',
