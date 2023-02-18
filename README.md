@@ -7,11 +7,11 @@ The file & image names, and paths, are all specific to the [Weather Station](htt
 
 The skin can be downloaded from https://github.com/swfrx/SguWeewx/releases and is installed in the usual way with ['wee_extension'](https://weewx.com/docs/utilities.htm#wee_extension_utility).  
 
-No configuration should be required.  The skin assumes that:  
-  * Weewx is installed with [setup.py](https://weewx.com/docs/setup.htm) into ``/home/weewx``
+  * Weewx must be installed with [setup.py](https://weewx.com/docs/setup.htm) into the default location of ``/home/weewx``
   * This skin places it's output in ``/home/weewx/public_html/sguweewx/dokuwiki``
   * Images are generated in the subdirectory ``media/weather``
   * NOAA yearly & monthly summaries are generated in the subdirectory ``pages/weather/noaa`` 
+  * No additional configuration should be required
 
 Dokuwiki Notes:
   * The correct namespace for the NOAA files in DokuWiki is ``weather:noaa:``  
