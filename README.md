@@ -9,14 +9,11 @@ The skin can be downloaded from https://github.com/swfrx/SguWeewx/releases and i
 
   * I recomend that Weewx is installed with [setup.py](https://weewx.com/docs/setup.htm) into the default location of ``/home/weewx``.
   * Turn off the default ``SeasonsReport`` by in the ``[[SeasonsReport]]`` of ``weewx.conf``, changing ``enable = true`` to ``enable = false``.
-  * The Dokuwiki server needs a user for FTP that the WeeWx platform can connect to, and with a home directory that is the [Dokuwiki data](https://www.dokuwiki.org/devel:dirlayout) directory, which contains the ``media`` and ``pages`` directories.
-  * The [FTP](https://weewx.com/docs/usersguide.htm#If_the_server_is_on_a_different_machine) or [RSYNC](https://weewx.com/docs/usersguide.htm#If_the_server_is_on_a_different_machine) section needs configuring with the correct server, path, user and password as per the Dokuwiki server.  The home directory on the remote server should be where the ``dokuwiki`` installation is.
-  * By default ``$HTML_ROOT`` is ``/home/weewx/public_html/sguweewx``, and this skin places it's output in ``$HTML_ROOT/dokuwiki`` from where new and altered content is copied to the main Dokuwiki server.
+  * The DokuWiki server needs a user for FTP that the WeeWx platform can connect to, and with a home directory that is the [Dokuwiki data](https://www.dokuwiki.org/devel:dirlayout) directory, which contains the ``media`` and ``pages`` directories.
+  * The [FTP](https://weewx.com/docs/usersguide.htm#If_the_server_is_on_a_different_machine) or [RSYNC](https://weewx.com/docs/usersguide.htm#If_the_server_is_on_a_different_machine) section needs configuring with the correct server, path, user and password as per the DokuWiki server.  The home directory on the remote server should be where the ``dokuwiki`` installation is.
+  * By default ``$HTML_ROOT`` is ``/home/weewx/public_html/sguweewx``, and this skin places it's output in ``$HTML_ROOT/dokuwiki`` from where new and altered content is copied to the main DokuWiki server.
   * No WeeWx configuration beyond that mentioned above should be required.
-
-Dokuwiki Notes:
   * The correct [DokuWiki namespace](https://www.dokuwiki.org/namespaces) for the NOAA files in DokuWiki is ``weather:noaa:``  
-  * The name format for NOAA yearly summaries is ``noaa-2[0-9][0-9][0-9].txt``
   
 This skin produces the following pages and images:  
 
@@ -37,7 +34,7 @@ This skin produces the following pages and images:
  
 ``sguweewx.html`` is a file that can be used to view the images and statistics in a test situation.  It is not accessed on the live system.
 
-``weather_stats_incl.txt`` is a file in [DokuWiki table format](https://www.dokuwiki.org/wiki:syntax#tables).  It's intended that it is [included](https://www.dokuwiki.org/plugin:include) in a Dokuwiki page to display the most recently generated weather statistics - see [Weather Statistics](https://pilots.scottishglidingcentre.co.uk/weather/weather_stats).
+``weather_stats_incl.txt`` is a file in [DokuWiki table format](https://www.dokuwiki.org/wiki:syntax#tables).  It's intended that it is [included](https://www.dokuwiki.org/plugin:include) in a DokuWiki page to display the most recently generated weather statistics - see [Weather Statistics](https://pilots.scottishglidingcentre.co.uk/weather/weather_stats).
 
 The fonts used in the images - OpenSans-Bold.ttf and OpenSans-Regular.ttf - are included in the skin. 
 
