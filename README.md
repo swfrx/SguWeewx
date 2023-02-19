@@ -17,20 +17,20 @@ The skin can be downloaded from https://github.com/swfrx/SguWeewx/releases and i
   
 This skin produces the following pages and images:  
 
-   * $HTML_ROOT/dokuwiki/media/weather/daybarometer-sgu-big.png
-   * $HTML_ROOT/dokuwiki/media/weather/daybarometer-sgu.png
-   * $HTML_ROOT/dokuwiki/media/weather/dayrain-sgu-big.png
-   * $HTML_ROOT/dokuwiki/media/weather/dayrain-sgu.png
-   * $HTML_ROOT/dokuwiki/media/weather/dayrose.png
-   * $HTML_ROOT/dokuwiki/media/weather/dayspiral.png
-   * $HTML_ROOT/dokuwiki/media/weather/daytempdew-sgu-big.png
-   * $HTML_ROOT/dokuwiki/media/weather/daytempdew-sgu.png
-   * $HTML_ROOT/dokuwiki/media/weather/daywind-sgu-big.png
-   * $HTML_ROOT/dokuwiki/media/weather/daywind-sgu.png
-   * $HTML_ROOT/dokuwiki/pages/weather/noaa/noaa-yyyy-mm.txt - one file per month per year
-   * $HTML_ROOT/dokuwiki/pages/weather/noaa/noaa-yyyy.txt - one file per year
-   * $HTML_ROOT/dokuwiki/pages/weather/weather_stats_incl.txt
-   * $HTML_ROOT/dokuwiki/sguweewx.html
+   * ``$HTML_ROOT/dokuwiki/media/weather/daybarometer-sgu-big.png``
+   * ``$HTML_ROOT/dokuwiki/media/weather/daybarometer-sgu.png``
+   * ``$HTML_ROOT/dokuwiki/media/weather/dayrain-sgu-big.png``
+   * ``$HTML_ROOT/dokuwiki/media/weather/dayrain-sgu.png``
+   * ``$HTML_ROOT/dokuwiki/media/weather/dayrose.png``
+   * ``$HTML_ROOT/dokuwiki/media/weather/dayspiral.png``
+   * ``$HTML_ROOT/dokuwiki/media/weather/daytempdew-sgu-big.png``
+   * ``$HTML_ROOT/dokuwiki/media/weather/daytempdew-sgu.png``
+   * ``$HTML_ROOT/dokuwiki/media/weather/daywind-sgu-big.png``
+   * ``$HTML_ROOT/dokuwiki/media/weather/daywind-sgu.png``
+   * ``$HTML_ROOT/dokuwiki/pages/weather/noaa/noaa-yyyy-mm.txt - one file per month per year``
+   * ``$HTML_ROOT/dokuwiki/pages/weather/noaa/noaa-yyyy.txt - one file per year``
+   * ``$HTML_ROOT/dokuwiki/pages/weather/weather_stats_incl.txt``
+   * ``$HTML_ROOT/dokuwiki/sguweewx.html``
  
 ``sguweewx.html`` is a file that can be used to view the images and statistics in a test situation.  It is not accessed on the live system.
 
