@@ -1,7 +1,7 @@
 """
 Extension for the SguWeewx skin
 This extension creates a DokuWiki format table for the NOAA year & month summaries
-Sally Woolrich, June 2022
+Sally Woolrich, February 2023
 """
 
 import os
@@ -27,7 +27,7 @@ from weewx.cheetahgenerator import SearchList
 
 
 # Print version in syslog for easier troubleshooting
-VERSION = "2.0"
+VERSION = "2.1"
 loginf("sguweewx.py Version %s" % VERSION)
 
 
@@ -75,7 +75,7 @@ class getData(SearchList):
             )
 
         noaa_directory = os.path.join( html_root , "dokuwiki", "pages", "weather", "noaa" )
-        loginf("noaa_directory = %s" % noaa_directory)
+        # loginf("noaa_directory = %s" % noaa_directory)
 
 # Directory with NOAA files becomes cwd
 # If this is a new installation the directory might not exist
