@@ -1,2 +1,6 @@
+2.0 19 Feb 2023
+* No longer uses a hard coded HTML_ROOT
+* README.md updated and expanded
+
 0.1 17jun2022
 * initial release as packaged weewx extension
