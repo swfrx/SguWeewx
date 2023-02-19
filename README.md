@@ -10,33 +10,34 @@ The skin can be downloaded from https://github.com/swfrx/SguWeewx/releases and i
   * Weewx must be installed with [setup.py](https://weewx.com/docs/setup.htm) into the default location of ``/home/weewx``
   * Turn off the default 'Seasonsreport'
   * The Dokuwiki server needs a user for FTP that the WeeWx platform can connect to, and with a home directory that is the [Dokuwiki data](https://www.dokuwiki.org/devel:dirlayout) directory, which contains the ``media`` and ``pages`` directories
-  * The [FTP](https://weewx.com/docs/usersguide.htm#If_the_server_is_on_a_different_machine) or [RSYNC](https://weewx.com/docs/usersguide.htm#If_the_server_is_on_a_different_machine) section needs configuring with the correct server, path, user and password as per the Dokuwiki server.  The home directory should be where the ``dokuwiki`` installation is e.g.  
-  * This skin places it's output in ``/home/weewx/public_html/sguweewx/dokuwiki`` from where new and altered content is copied to the main Dokuwiki server
+  * The [FTP](https://weewx.com/docs/usersguide.htm#If_the_server_is_on_a_different_machine) or [RSYNC](https://weewx.com/docs/usersguide.htm#If_the_server_is_on_a_different_machine) section needs configuring with the correct server, path, user and password as per the Dokuwiki server.  The home directory should be where the ``dokuwiki`` installation is
+  * By default ``$HTML_ROOT`` is ``/home/weewx/public_html/sguweewx``, and this skin places it's output in ``$HTML_ROOT/dokuwiki`` from where new and altered content is copied to the main Dokuwiki server
   * No WeeWx configuration beyond that mentioned above should be required
+  * However if you want the output places elsewhere it should still be picked up and copied, and the table for the NOAA files generated
 
 Dokuwiki Notes:
   * The correct namespace for the NOAA files in DokuWiki is ``weather:noaa:``  
   * The name format for NOAA yearly summaries is ``noaa-2[0-9][0-9][0-9].txt``
   
 This skin produces the following pages and images:  
-  * pages/weather/weather_stats_incl.txt  
-  * pages/weather/noaa/noaa-YYYY.txt.tmpl  
-  * pages/weather/noaa/noaa-YYYY-MM.txt.tmpl  
-  * sguweewx.html
-  * media/weather/daybarometer-sgu.png
-  * media/weather/daybarometer-sgu-big.png
-  * media/weather/dayrain-sgu.png
-  * media/weather/dayrain-sgu-big.png
-  * media/weather/daytempdew-sgu.png
-  * media/weather/daytempdew-sgu-big.png
-  * media/weather/daywind-sgu.png
-  * media/weather/daywind-sgu-big.png  
-  * media/weather/dayrose.png
-  * media/weather/dayspiral.png
+$HTML_ROOT/dokuwiki/media/weather/daybarometer-sgu-big.png
+$HTML_ROOT/dokuwiki/media/weather/daybarometer-sgu.png
+$HTML_ROOT/dokuwiki/media/weather/dayrain-sgu-big.png
+$HTML_ROOT/dokuwiki/media/weather/dayrain-sgu.png
+$HTML_ROOT/dokuwiki/media/weather/dayrose.png
+$HTML_ROOT/dokuwiki/media/weather/dayspiral.png
+$HTML_ROOT/dokuwiki/media/weather/daytempdew-sgu-big.png
+$HTML_ROOT/dokuwiki/media/weather/daytempdew-sgu.png
+$HTML_ROOT/dokuwiki/media/weather/daywind-sgu-big.png
+$HTML_ROOT/dokuwiki/media/weather/daywind-sgu.png
+$HTML_ROOT/dokuwiki/pages/weather/noaa/noaa-yyyy-mm.txt
+$HTML_ROOT/dokuwiki/pages/weather/noaa/noaa-yyyy.txt
+$HTML_ROOT/dokuwiki/pages/weather/weather_stats_incl.txt
+$HTML_ROOT/dokuwiki/sguweewx.html
  
-``sguweewx.html`` is a file that can be used to view the images and statistics in a test situation - there is no use for it on the live system.
+``sguweewx.html`` is a file that can be used to view the images and statistics in a test situation.  It is not accessed on the live system.
 
-``weather_stats_incl.txt`` is a file that can be [included](https://www.dokuwiki.org/plugin:include) in a Dokuwiki page to display the most recently generated weather statistics - see [Weather Statistics](https://pilots.scottishglidingcentre.co.uk/weather/weather_stats).
+``weather_stats_incl.txt`` is a file in [DokuWiki table format](https://www.dokuwiki.org/wiki:syntax#tables).  It's intended that it is [included](https://www.dokuwiki.org/plugin:include) in a Dokuwiki page to display the most recently generated weather statistics - see [Weather Statistics](https://pilots.scottishglidingcentre.co.uk/weather/weather_stats).
 
 The fonts used in the images - OpenSans-Bold.ttf and OpenSans-Regular.ttf - are included in the skin. 
 
