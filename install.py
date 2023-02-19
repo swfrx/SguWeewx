@@ -5,7 +5,7 @@ from weecfg.extension import ExtensionInstaller
 
 #-------- extension info -----------
 
-VERSION      = "1.1"
+VERSION      = "2.1"
 NAME         = 'SguWeewx'
 DESCRIPTION  = 'A highly bespoke skin used to interface the SGU weather station with the Pilot\'s Wiki'
 AUTHOR       = "Sally Woolrich"
