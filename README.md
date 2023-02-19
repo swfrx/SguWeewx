@@ -8,7 +8,7 @@ The file & image names, and paths, are all specific to the [SGC Weather Station]
 The skin can be downloaded from https://github.com/swfrx/SguWeewx/releases and is installed in the usual way with ['wee_extension'](https://weewx.com/docs/utilities.htm#wee_extension_utility).  
 
   * I recomend that Weewx is installed with [setup.py](https://weewx.com/docs/setup.htm) into the default location of ``/home/weewx``.
-  * Turn off the default 'SeasonsReport' by in the ``[[SeasonsReport]]`` of ``weewx.conf``, changing ``enable = true`` to ``enable = false``.
+  * Turn off the default ``SeasonsReport`` by in the ``[[SeasonsReport]]`` of ``weewx.conf``, changing ``enable = true`` to ``enable = false``.
   * The Dokuwiki server needs a user for FTP that the WeeWx platform can connect to, and with a home directory that is the [Dokuwiki data](https://www.dokuwiki.org/devel:dirlayout) directory, which contains the ``media`` and ``pages`` directories.
   * The [FTP](https://weewx.com/docs/usersguide.htm#If_the_server_is_on_a_different_machine) or [RSYNC](https://weewx.com/docs/usersguide.htm#If_the_server_is_on_a_different_machine) section needs configuring with the correct server, path, user and password as per the Dokuwiki server.  The home directory on the remote server should be where the ``dokuwiki`` installation is.
   * By default ``$HTML_ROOT`` is ``/home/weewx/public_html/sguweewx``, and this skin places it's output in ``$HTML_ROOT/dokuwiki`` from where new and altered content is copied to the main Dokuwiki server.
