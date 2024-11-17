@@ -74,7 +74,7 @@ class getData(SearchList):
                 self.generator.config_dict["StdReport"]["HTML_ROOT"],
             )
 
-        noaa_directory = os.path.join( html_root , "dokuwiki", "pages", "weather", "noaa" )
+        noaa_directory = os.path.join( html_root , "pages", "weather", "noaa" )
         # loginf("noaa_directory = %s" % noaa_directory)
 
 # Directory with NOAA files becomes cwd
