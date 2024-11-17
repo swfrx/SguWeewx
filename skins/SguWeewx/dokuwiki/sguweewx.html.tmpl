@@ -5,22 +5,78 @@
   <head profile="http://www.w3.org/2005/10/profile">
     <title>Scottish Gliding Center - Weather Test Page</title>
     <style>
-body {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-family: Arial, Sans-Serif;
-    background-color: var(--background-color);
-}
+        body {
+          font-family: Arial, sans-serif;
+          font-size: 14pt;
+          background-color: #ffffff;
+        }
+        h1 {
+          font-size: 120%;
+        }
+        h2 {
+          font-size: 110%;
+        }
+        a:link {
+          text-decoration: underline;
+          color: #207070;
+        }
+        a:hover {
+          text-decoration: underline;
+          color: #30a0a0;
+        }
+        a:visited {
+          text-decoration: underline;
+          color: #207070;
+        }
+        table, td, th {
+          border: 1px solid;
+          border-collapse: collapse;
+          padding: 5px;
+        }
     </style>
   </head>
-<body style="padding:10px">
+<body>
 <div>
 <h1>Welcome to the Scottish Gliding Centre weather station</h1>
-
-<p><a href="https://weewx.com">WeeWx v$station.version</a></p>
-<p><a href="https://github.com/swfrx/SguWeewx">Skin $SKIN_NAME v$SKIN_VERSION</a></p>
-<p>Generated on $current.dateTime.format(format_string="%d-%b-%Y at %H:%M%p")</p>
+<h2>About</h2>
+<table>
+  <tr>
+    <td>Software</td>
+    <td>
+      <a href="https://weewx.com">WeeWx v$station.version</a>
+    </td>
+  </tr>
+  <tr>
+    <td>Skin</td>
+    <td>
+      <a href="https://github.com/swfrx/SguWeewx">$SKIN_NAME v$SKIN_VERSION</a>
+    </td>
+  </tr>
+  <tr>
+    <td>Wind roses</td>
+    <td>
+      <a href="https://github.com/gjr80/weewx-polarwindplot">PolarWindPlot v0.1.2</a>
+    </td>
+  </tr>
+  <tr>
+    <td>Station Type</td>
+    <td>
+       <a href="https://www.foshk.com/Wifi_Weather_Station/WH2650.html">FineOffset $station.hardware Clone</a>
+    </td>
+  </tr>
+  <tr>
+    <td>Generated on:</td>
+    <td>$current.dateTime.format(format_string="%d-%b-%Y at %H:%M%p")</td>
+  </tr>
+  <tr>
+    <td>WeeWx uptime:</td>
+    <td>$station.uptime.long_form</td>
+  </tr>
+  <tr>
+    <td>OS uptime:</td>
+    <td>$station.uptime.long_form</td>
+  </tr>
+</table>
 
 <h2>Windroses</h2>
 <p>
