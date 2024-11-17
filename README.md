@@ -1,18 +1,17 @@
 # SguWeewx
-Bespoke skin to produce files &amp; images from [WeeWx](https://weewx.com/) to go into the [SGU Pilot's Wiki](https://pilots.scottishglidingcentre.co.uk/), which is created using [DokuWiki](https://www.dokuwiki.org/)
+Bespoke skin to produce files &amp; images from [WeeWx](https://weewx.com/) for the [Scottish Gliding Centre's Pilot's Wiki](https://pilots.scottishglidingcentre.co.uk/).
 
-The aim of this skin is to make it as simple as possible to install WeeWx and have it produce the required output in a structure that can be copied using FTP to the Pilot's Wiki server.
+The aim of this skin is to make it as simple as possible to install WeeWx and have it produce the required output in a structure that WeeWx can FTP to the Pilot's Wiki server.
 
 The file & image names, and paths, are all specific to the [SGC Weather Station](https://pilots.scottishglidingcentre.co.uk/weather/weather_station) and [SGC Weather Statistics](https://pilots.scottishglidingcentre.co.uk/weather/weather_stats) pages.
 
-The skin can be downloaded from https://github.com/swfrx/SguWeewx/releases and is installed in the usual way with ['wee_extension'](https://weewx.com/docs/utilities.htm#wee_extension_utility).  
+Following the release of WeeWx v5, skins are installed with [weectl](https://weewx.com/docs/5.1/utilities/weectl-extension/) and they can be installed directly from GitHub, without downloading the skin first.
 
-  * I recomend that Weewx is installed with [setup.py](https://weewx.com/docs/setup.htm) into the default location of ``/home/weewx``.
-  * Turn off the default ``SeasonsReport`` by in the ``[[SeasonsReport]]`` of ``weewx.conf``, changing ``enable = true`` to ``enable = false``.
-  * The DokuWiki server needs a user for FTP that the WeeWx platform can connect to, and with a home directory that is the [DokuWiki data](https://www.dokuwiki.org/devel:dirlayout) directory.  That directory contains the ``media`` and ``pages`` subdirectories.
-  * The [FTP](https://weewx.com/docs/usersguide.htm#If_the_server_is_on_a_different_machine) or [RSYNC](https://weewx.com/docs/usersguide.htm#If_the_server_is_on_a_different_machine) section needs configuring with the correct server, path, user and password as per the DokuWiki server.  The home directory on the remote server should be where the ``dokuwiki`` installation is.
-  * By default ``$HTML_ROOT`` is ``/home/weewx/public_html/sguweewx``, and this skin places it's output in ``$HTML_ROOT/dokuwiki`` from where new and altered content is copied to the main DokuWiki server.
-  * No WeeWx configuration beyond that mentioned above should be required.
+  * Turn off the default ``SeasonsReport`` in the ``[[SeasonsReport]]`` section of ``weewx.conf`` by changing ``enable = true`` to ``enable = false``.
+  * The DokuWiki server needs an FTP user that the WeeWx platform use for it's connection. The home directory for that user should be the [DokuWiki data](https://www.dokuwiki.org/devel:dirlayout) directory, which contains the ``media`` and ``pages`` subdirectories.
+  * The [FTP](https://weewx.com/docs/usersguide.htm#If_the_server_is_on_a_different_machine) or [RSYNC](https://weewx.com/docs/usersguide.htm#If_the_server_is_on_a_different_machine) section in ``/etc/weewx/weewx.conf`` needs configuring with the correct server, path, user and password.
+  * By default ``$HTML_ROOT`` for WeeWx v5 is  ``/var/www/html/weewx``, and this skin places it's output in ``$HTML_ROOT/dokuwiki``. New and altered content is copied from there to the DokuWiki server.
+  * No WeeWx configuration beyond that mentioned above should be required beyond any specific changes required for the physical weather station, for example installing and configuring the [GW1000](https://github.com/gjr80/weewx-gw1000) extension.
   * The correct [DokuWiki namespace](https://www.dokuwiki.org/namespaces) for the NOAA files in DokuWiki is ``weather:noaa:``  
   
 This skin produces the following pages and images:  
@@ -32,10 +31,10 @@ This skin produces the following pages and images:
    * ``$HTML_ROOT/dokuwiki/pages/weather/weather_stats_incl.txt``
    * ``$HTML_ROOT/dokuwiki/sguweewx.html``
  
-``sguweewx.html`` is a file that can be used to view the images and statistics in a test situation.  It is not accessed on the live system.
+``sguweewx.html`` is a file that can be used to view the images and statistics in a test situation, and which also displays the versions of WeeWx, this skin, and the [PolarWindPlot](https://github.com/gjr80/weewx-polarwindplot) skin.  It is not used by the live system.
 
-``weather_stats_incl.txt`` is a file in [DokuWiki table format](https://www.dokuwiki.org/wiki:syntax#tables).  It's intended that it is [included](https://www.dokuwiki.org/plugin:include) in a DokuWiki page to display the most recently generated weather statistics - see [Weather Statistics](https://pilots.scottishglidingcentre.co.uk/weather/weather_stats).
+``weather_stats_incl.txt`` is a file in [DokuWiki table format](https://www.dokuwiki.org/wiki:syntax#tables) which is [included](https://www.dokuwiki.org/plugin:include) in a DokuWiki page that displays the [most recent Weather Statistics](https://pilots.scottishglidingcentre.co.uk/weather/weather_stats).
 
 The fonts used in the images - ``OpenSans-Bold.ttf`` and ``OpenSans-Regular.ttf`` - are included in the skin. 
 
-The WindRose files are generated by the [PolarWindPlot skin](https://github.com/gjr80/weewx-polarwindplot) which has been included in this sking.  Permission was kindly granted by the author, who also gave a lot of help along the way.
+The WindRose files are generated by the [PolarWindPlot skin](https://github.com/gjr80/weewx-polarwindplot) which has been included in this skin by kind permission of the [author](https://github.com/gjr80). He also gave a lot of help along the way.
