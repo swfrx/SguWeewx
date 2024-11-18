@@ -35,7 +35,7 @@ class SguWeewxInstaller(ExtensionInstaller):
                     'PolarWindPlot': {
                         'skin': 'PolarWindPlot',
                         'enable' : 'True',
-                        'HTML_ROOT': '/var/www/html/weewx/dokuwiki,'
+                        'HTML_ROOT': '/var/www/html/weewx/dokuwiki',
                     },
                     'Defaults': {
                         'Units': {
