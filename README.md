@@ -1,5 +1,5 @@
 # SguWeewx
-Bespoke skin to produce files &amp; images from [WeeWx](https://weewx.com/) for the [Scottish Gliding Centre's Pilot's Wiki](https://pilots.scottishglidingcentre.co.uk/).
+A skin to produce files &amp; images from [WeeWx](https://weewx.com/) for the [Scottish Gliding Centre's Pilot's Wiki](https://pilots.scottishglidingcentre.co.uk/).
 
 The aim of this skin is to make it as simple as possible to install WeeWx and have it produce the required output in a structure that WeeWx can FTP to the Pilot's Wiki server.
 
