@@ -5,7 +5,7 @@ from weecfg.extension import ExtensionInstaller
 
 #-------- extension info -----------
 
-VERSION      = "2.2"
+VERSION      = "2.2c"
 NAME         = 'SguWeewx'
 DESCRIPTION  = 'A bespoke skin used to interface the Scottish Gliding Center weather station with the Pilot\'s Wiki'
 AUTHOR       = "Sally Woolrich"
@@ -30,12 +30,12 @@ class SguWeewxInstaller(ExtensionInstaller):
                         'skin': 'SguWeewx',
                         'enable' : 'True',
                         'lang': 'en',
-                        HTML_ROOT=/var/www/html/weewx/dokuwiki,
+                        'HTML_ROOT':'/var/www/html/weewx/dokuwiki',
                     },
                     'PolarWindPlot': {
                         'skin': 'PolarWindPlot',
                         'enable' : 'True',
-                        HTML_ROOT=/var/www/html/weewx/dokuwiki,
+                        'HTML_ROOT': '/var/www/html/weewx/dokuwiki,'
                     },
                     'Defaults': {
                         'Units': {
