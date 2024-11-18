@@ -5,9 +5,9 @@ from weecfg.extension import ExtensionInstaller
 
 #-------- extension info -----------
 
-VERSION      = "2.1"
+VERSION      = "2.2"
 NAME         = 'SguWeewx'
-DESCRIPTION  = 'A highly bespoke skin used to interface the SGU weather station with the Pilot\'s Wiki'
+DESCRIPTION  = 'A bespoke skin used to interface the Scottish Gliding Center weather station with the Pilot\'s Wiki'
 AUTHOR       = "Sally Woolrich"
 AUTHOR_EMAIL = "https://github.com/swfrx/sguweewx"
 
@@ -30,10 +30,12 @@ class SguWeewxInstaller(ExtensionInstaller):
                         'skin': 'SguWeewx',
                         'enable' : 'True',
                         'lang': 'en',
+                        HTML_ROOT=/var/www/html/weewx/dokuwiki,
                     },
                     'PolarWindPlot': {
                         'skin': 'PolarWindPlot',
                         'enable' : 'True',
+                        HTML_ROOT=/var/www/html/weewx/dokuwiki,
                     },
                     'Defaults': {
                         'Units': {
