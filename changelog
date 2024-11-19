@@ -1,5 +1,6 @@
-2.2 18 Nov 2024
+2.2e 19 Nov 2024
 * HTML_ROOT now set in weewx.conf, rather than in the two skin.conf files
+* dokuwiki folder elimiated from skin
 * Amended as necessary for WeeWx v5
 
 2.1 19 Feb 2023
