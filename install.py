@@ -25,7 +25,13 @@ class SguWeewxInstaller(ExtensionInstaller):
             author=AUTHOR,
             author_email=AUTHOR_EMAIL,
             config={
+                'Station':{
+                    'location': 'SCOTTISH GLIDING CENTRE',
+                },
                 'StdReport': {
+                    'Seasons' : {
+                        'enable' : 'False',
+                    },
                     'SguWeewxReport': {
                         'skin': 'SguWeewx',
                         'enable' : 'True',
