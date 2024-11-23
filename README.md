@@ -31,9 +31,11 @@ This skin produces the following pages and images:
    * ``$HTML_ROOT/dokuwiki/pages/weather/weather_stats_incl.txt``
    * ``$HTML_ROOT/dokuwiki/sguweewx.html``
  
-``sguweewx.html`` is a file that can be used to view the images and statistics in a test situation, and which also displays the versions of WeeWx, this skin, and the [PolarWindPlot](https://github.com/gjr80/weewx-polarwindplot) skin.  It is not used by the live system.
+``sguweewx.html`` is a file that can be used to view the images and statistics in a test situation, and which also displays the versions of [WeeWx](https://weewx.com/), [this skin](https://github.com/swfrx/SguWeewx), and the [PolarWindPlot](https://github.com/gjr80/weewx-polarwindplot) skin.  It is not used by the live system.
 
-``weather_stats_incl.txt`` is a file in [DokuWiki table format](https://www.dokuwiki.org/wiki:syntax#tables) which is [included](https://www.dokuwiki.org/plugin:include) in a DokuWiki page that displays the [most recent Weather Statistics](https://pilots.scottishglidingcentre.co.uk/weather/weather_stats).
+``pages/weather/weather_stats_incl.txt.tmpl`` produces a file in [DokuWiki table format](https://www.dokuwiki.org/wiki:syntax#tables) which is [included](https://www.dokuwiki.org/plugin:include) in a DokuWiki page that displays the [most recent Weather Statistics](https://pilots.scottishglidingcentre.co.uk/weather/weather_stats).
+
+``pages/weather/noaa/noaa-YYYY.txt.tmpl`` and ``pages/weather/noaa/noaa-YYYY.txt.tmpl`` are templates to produce NOAA weather summary files.
 
 The fonts used in the images - ``OpenSans-Bold.ttf`` and ``OpenSans-Regular.ttf`` - are included in the skin. 
 
