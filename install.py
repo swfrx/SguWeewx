@@ -9,7 +9,7 @@ VERSION      = "2.2g"
 NAME         = 'SguWeewx'
 DESCRIPTION  = 'A bespoke skin used to interface the Scottish Gliding Center weather station with the Pilot\'s Wiki'
 AUTHOR       = "Sally Woolrich"
-AUTHOR_EMAIL = "https://github.com/swfrx/sguweewx"
+AUTHOR_EMAIL = "shunracats<at>gmail.com"
 
 #-------- main loader -----------
 
