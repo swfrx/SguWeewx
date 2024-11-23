@@ -1,7 +1,7 @@
 """
 Extension for the SguWeewx skin
 This extension creates a DokuWiki format table for the NOAA year & month summaries
-Sally Woolrich, February 2023
+Sally Woolrich, February 2023    shunracats<at>gmail.com
 """
 
 import os
