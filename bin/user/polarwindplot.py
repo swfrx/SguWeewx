@@ -35,9 +35,11 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with
 this program.  If not, see https://www.gnu.org/licenses/.
 
-Version: 0.1.2                                      Date: 9 November 2024
+Version: 0.1.3b1                                    Date: 9 November 2024
 
 Revision History
+    xx November 2024    v0.1.3
+        -   added searchlist extension that provides $polar_version_number tag
     9 November 2024     v0.1.2
         -   generator version string can now be optionally included on each plot
         -   fix error in processing of timestamp location config option
@@ -110,7 +112,7 @@ except ImportError:
         logmsg(syslog.LOG_ERR, msg)
 
 
-POLAR_WIND_PLOT_VERSION = '0.1.2'
+POLAR_WIND_PLOT_VERSION = '0.1.3b1'
 DEFAULT_PLOT_COLORS = ['lightblue', 'blue', 'midnightblue', 'forestgreen',
                        'limegreen', 'green', 'greenyellow']
 DEFAULT_NUM_RINGS = 5
@@ -2389,3 +2391,43 @@ def color_trans(start_color, end_color, proportion):
     b = int((1 - proportion) * start_b + proportion * end_b + 0.5)
     # return the resulting transitional color in #RRGGBB format
     return '#%02x%02x%02x' % (r, g, b)
+
+
+# ==============================================================================
+#                              class SundryTags
+# ==============================================================================
+
+class SundryTags(weewx.cheetahgenerator.SearchList):
+    """SLE to return various sundry tags."""
+
+    def __init__(self, generator):
+        # initialise our superclass
+        super(SundryTags, self).__init__(generator)
+
+    def get_extension_list(self, timespan, db_lookup):
+        """Returns various tags.
+
+        Parameters:
+            timespan: An instance of weeutil.weeutil.TimeSpan. This will hold
+                      the start and stop times of the domain of valid times.
+
+            db_lookup: This is a function that, given a data binding as its
+                       only parameter, will return a database manager object.
+
+        Returns:
+            polar_version_number: A string containing the polar wind plot
+                                  generator version number.
+        """
+
+        # get the current time so we can time our execution
+        t1 = time.time()
+
+
+        # create a small dictionary with the tag names (keys) we want to use
+        search_list = {'polar_version_number': POLAR_WIND_PLOT_VERSION}
+
+        t2 = time.time()
+        if weewx.debug >= 2:
+            logdbg("SundryTags SLE executed in %0.3f seconds" % (t2-t1))
+
+        return [search_list]
