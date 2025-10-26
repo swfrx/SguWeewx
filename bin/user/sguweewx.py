@@ -27,7 +27,7 @@ from weewx.cheetahgenerator import SearchList
 
 
 # Print version in syslog for easier troubleshooting
-VERSION = "2.2g"
+VERSION = "3.0"
 loginf("sguweewx.py Version %s" % VERSION)
 
 
