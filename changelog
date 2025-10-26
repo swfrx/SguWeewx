@@ -1,4 +1,4 @@
-3.0 26 Oct 25
+3.0.1 26 Oct 25
 * polarwindplot.py was using a feature removed from the latest version (12) of the Pillow PIL fork
 
 2.2e 19 Nov 2024
