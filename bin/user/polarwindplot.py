@@ -20,8 +20,9 @@ Various parameters including the plot type, period, source data field, units
 of measure and colours can be controlled by the user through various
 configuration options similar to other image generators.
 
-Copyright (c) 2017-2024   Gary Roderick           gjroderick<at>gmail.com
+Copyright (c) 2017-2025   Gary Roderick           gjroderick<at>gmail.com
                           Neil Trimboy            neil.trimboy<at>gmail.com
+                          Sally Woolrich          sally.woolrich<at>outlook.com
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -35,9 +36,11 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with
 this program.  If not, see https://www.gnu.org/licenses/.
 
-Version: 0.1.3b1                                    Date: 9 November 2024
+Version: 1.0.0                                      Date: 24 October 2025
 
 Revision History
+    24 October 2025     v1.0.0
+	-   amended to work with PIL 10 and later - Sally Woolrich
     xx November 2024    v0.1.3
         -   added searchlist extension that provides $polar_version_number tag
     9 November 2024     v0.1.2
@@ -62,11 +65,12 @@ import os.path
 import time
 # first try to import from PIL then revert to python-imaging if an error
 try:
-    from PIL import Image, ImageColor, ImageDraw
+    from PIL import Image, ImageColor, ImageDraw, ImageFont
 except ImportError:
     import Image
     import ImageColor
     import ImageDraw
+    import ImageFont
 
 # compatibility shims
 import six
@@ -112,7 +116,7 @@ except ImportError:
         logmsg(syslog.LOG_ERR, msg)
 
 
-POLAR_WIND_PLOT_VERSION = '0.1.3b1'
+POLAR_WIND_PLOT_VERSION = '1.0.0'
 DEFAULT_PLOT_COLORS = ['lightblue', 'blue', 'midnightblue', 'forestgreen',
                        'limegreen', 'green', 'greenyellow']
 DEFAULT_NUM_RINGS = 5
@@ -132,9 +136,8 @@ SPEED_LOOKUP = {'km_per_hour': 'km/h',
                 'mile_per_hour': 'mph',
                 'meter_per_second': 'm/s',
                 'knot': 'kn'}
-DEGREE_SYMBOL = u'\N{DEGREE SIGN}'
+DEGREE_SYMBOL = '\N{DEGREE SIGN}'
 PREFERRED_LABEL_QUADRANTS = [1, 2, 0, 3]
-
 
 # =============================================================================
 #                        Class PolarWindPlotGenerator
@@ -412,6 +415,10 @@ class PolarWindPlot(object):
         # save the formatter
         self.formatter = formatter
 
+        # check if we are debugging - this is in skin.config
+        self.polar_debug = int(plot_dict.get('polar_debug', 0))
+        logerr( "self.polar_debug = " + str(self.polar_debug))
+
         # set image attributes
         # overall image width and height
         self.image_width = int(plot_dict.get('image_width', 300))
@@ -683,9 +690,13 @@ class PolarWindPlot(object):
         """
 
         self.title = six.ensure_text(title)
+        #if self.polar_debug:
+            #logerr( "set_title()" )
+            #logerr( "    self.label_font = " + str(self.label_font) )
+            #logerr( "    title = '" + title + "'" )
+
         if title:
-            self.title_width, self.title_height = self.draw.textsize(self.title,
-                                                                     font=self.label_font)
+            self.title_width, self.title_height = self.get_hw( self.polar_debug, self.title, self.label_font )
         else:
             self.title_width = 0
             self.title_height = 0
@@ -697,12 +708,15 @@ class PolarWindPlot(object):
         be displayed.
         """
 
+        if self.polar_debug:
+            logerr( "set_polar_grid()" )
+
         # calculate plot diameter
         # first calculate the size of the cardinal compass direction labels
-        _w, _n_height = self.draw.textsize(self.north, font=self.plot_font)
-        _w, _s_height = self.draw.textsize(self.south, font=self.plot_font)
-        _w_width, _h = self.draw.textsize(self.west, font=self.plot_font)
-        _e_width, _h = self.draw.textsize(self.east, font=self.plot_font)
+        _w, _n_height = self.get_hw( self.polar_debug, self.north, self.plot_font )
+        _w, _s_height = self.get_hw( self.polar_debug, self.south, self.plot_font )
+        _w_width, _h = self.get_hw( self.polar_debug, self.west, self.plot_font )
+        _e_width, _h = self.get_hw( self.polar_debug, self.east, self.plot_font )
 
         # now calculate the plot area diameter in pixels, two diameters are
         # calculated, one based on image height and one based on image width
@@ -724,6 +738,9 @@ class PolarWindPlot(object):
         Determine the legend width and title.
         """
 
+        if self.polar_debug:
+            logerr( "set_legend()" )
+
         if self.legend:
             # do we display % values against each legend speed label
             self.legend_percentage = percentage
@@ -733,8 +750,9 @@ class PolarWindPlot(object):
                 _text = '0 (100%)'
             else:
                 _text = '999'
+
             # estimate width of the legend
-            width, height = self.draw.textsize(_text, font=self.legend_font)
+            width, height = self.get_hw( self.polar_debug, _text, self.legend_font )
             self.legend_width = int(width + 2 * self.legend_bar_width + 1.5 * self.plot_border)
             # get legend title
             self.legend_title = self.get_legend_title(self.speed_field)
@@ -752,13 +770,17 @@ class PolarWindPlot(object):
     def render_legend(self):
         """Render a polar plot legend."""
 
+        if self.polar_debug:
+            logerr( "render_legend()" )
+
         # do we need to render a legend?
         if self.legend:
             # org_x and org_y = x,y coords of bottom left of legend stacked bar,
             # everything else is relative to this point
 
             # first get the space required between the polar plot and the legend
-            _width, _height = self.draw.textsize('E', font=self.plot_font)
+            _width, _height = self.get_hw( self.polar_debug, 'E', self.plot_font )
+
             org_x = self.origin_x + self.max_plot_dia / 2 + _width + 10
             org_y = self.origin_y + self.max_plot_dia / 2 - self.max_plot_dia / 22
             # bulb diameter
@@ -775,8 +797,8 @@ class PolarWindPlot(object):
                                     outline='black')
                 # add the label
                 # first, position the label
-                label_width, label_height = self.draw.textsize(str(self.speed_list[i]),
-                                                               font=self.legend_font)
+                label_width, label_height = self.get_hw( self.polar_debug, str(self.speed_list[i]), self.legend_font )
+
                 x = org_x + 1.5 * self.legend_bar_width
                 y = org_y - label_height / 2 - (0.85 * self.max_plot_dia * self.speed_factors[i])
                 # get the basic label text
@@ -796,7 +818,8 @@ class PolarWindPlot(object):
 
             # draw 'Calm' label and '0' speed label/percentage
             # position the 'Calm' label
-            t_width, t_height = self.draw.textsize('Calm', font=self.legend_font)
+            t_width, t_height = self.get_hw( self.polar_debug, 'Calm', self.legend_font )
+
             x = org_x - t_width - 2
             y = org_y - t_height / 2 - (0.85 * self.max_plot_dia * self.speed_factors[0])
             # render the 'Calm' label
@@ -805,8 +828,8 @@ class PolarWindPlot(object):
                            fill=self.legend_font_color,
                            font=self.legend_font)
             # position the '0' speed label/percentage
-            t_width, t_height = self.draw.textsize(str(self.speed_list[0]),
-                                                   font=self.legend_font)
+            t_width, t_height = self.get_hw( self.polar_debug, str(self.speed_list[0]), self.legend_font)
+
             x = org_x + 1.5 * self.legend_bar_width
             y = org_y - t_height / 2 - (0.85 * self.max_plot_dia * self.speed_factors[0])
             # get the basic label text
@@ -834,8 +857,8 @@ class PolarWindPlot(object):
 
             # draw legend title
             # position the legend title
-            t_width, t_height = self.draw.textsize(self.legend_title,
-                                                   font=self.legend_font)
+            t_width, t_height = self.get_hw( self.polar_debug, self.legend_title, self.legend_font )
+
             x = org_x + self.legend_bar_width / 2 - t_width / 2
             y = org_y - 5 * t_height / 2 - (0.85 * self.max_plot_dia)
             # render the title
@@ -846,8 +869,8 @@ class PolarWindPlot(object):
 
             # draw legend units label
             # position the units label
-            t_width, t_height = self.draw.textsize('(' + self.units + ')',
-                                                   font=self.legend_font)
+            t_width, t_height = self.get_hw( self.polar_debug, '(' + self.units + ')', self.legend_font )
+
             x = org_x + self.legend_bar_width / 2 - t_width / 2
             y = org_y - 3 * t_height / 2 - (0.85 * self.max_plot_dia)
             text = ''.join(('(', self.units, ')'))
@@ -867,6 +890,9 @@ class PolarWindPlot(object):
             bullseye: radius of the bullseye to be displayed on the polar grid
                       as a proportion of the polar grid radius
         """
+
+        if self.polar_debug:
+            logerr( "render_polar_grid" )
 
         # render the rings
 
@@ -904,8 +930,8 @@ class PolarWindPlot(object):
             # we only need do anything if we have a label for this ring
             if labels[i] is not None:
                 # calculate the width and height of the label text
-                width, height = self.draw.textsize(labels[i],
-                                                   font=self.plot_font)
+                width, height = self.get_hw( self.polar_debug, str(labels[i]), self.plot_font )
+
                 # find the distance of the midpoint of the text box from the
                 # plot origin
                 radius = bullseye_radius + (i + 1) * ring_space
@@ -944,7 +970,8 @@ class PolarWindPlot(object):
 
         # render N,S,E,W markers
         # North
-        width, height = self.draw.textsize(self.north, font=self.plot_font)
+        width, height = self.get_hw( self.polar_debug, self.north, self.plot_font )
+
         x = self.origin_x - width / 2
         y = self.origin_y - self.max_plot_dia / 2 - 1 - height
         self.draw.text((x, y),
@@ -952,7 +979,8 @@ class PolarWindPlot(object):
                        fill=self.plot_font_color,
                        font=self.plot_font)
         # South
-        width, height = self.draw.textsize(self.south, font=self.plot_font)
+        width, height = self.get_hw( self.polar_debug, self.south, self.plot_font )
+
         x = self.origin_x - width / 2
         y = self.origin_y + self.max_plot_dia / 2 + 3
         self.draw.text((x, y),
@@ -960,7 +988,8 @@ class PolarWindPlot(object):
                        fill=self.plot_font_color,
                        font=self.plot_font)
         # West
-        width, height = self.draw.textsize(self.west, font=self.plot_font)
+        width, height = self.get_hw( self.polar_debug, self.west, self.plot_font )
+
         x = self.origin_x - self.max_plot_dia / 2 - 1 - width
         y = self.origin_y - height / 2
         self.draw.text((x, y),
@@ -968,7 +997,8 @@ class PolarWindPlot(object):
                        fill=self.plot_font_color,
                        font=self.plot_font)
         # East
-        width, height = self.draw.textsize(self.east, font=self.plot_font)
+        width, height = self.get_hw( self.polar_debug, self.east, self.plot_font )
+
         x = self.origin_x + self.max_plot_dia / 2 + 1
         y = self.origin_y - height / 2
         self.draw.text((x, y),
@@ -995,12 +1025,19 @@ class PolarWindPlot(object):
     def render_timestamp(self):
         """Render plot timestamp."""
 
+        if self.polar_debug:
+            logerr( "render_timestamp()" )
+
+        # do we need to render a legend?
+
         # we only render if we have a location to put the timestamp otherwise
         # we have nothing to do
         if self.timestamp_location:
             _dt = datetime.datetime.fromtimestamp(self.timestamp)
             text = _dt.strftime(self.timestamp_format)
-            width, height = self.draw.textsize(text, font=self.label_font)
+
+            width, height = self.get_hw( self.polar_debug, text, self.label_font )
+
             if 'top' in self.timestamp_location:
                 y = self.plot_border + height
             else:
@@ -1011,6 +1048,12 @@ class PolarWindPlot(object):
                 x = self.origin_x - width / 2
             else:
                 x = self.image_width - self.plot_border - width
+
+            if self.polar_debug:
+                logerr( "    timestamp location = " + str(self.timestamp_location) )
+                logerr( "    x = " + str(x) )
+                logerr( "    y = " + str(y) )
+
             self.draw.text((x, y), text,
                            fill=self.label_font_color,
                            font=self.label_font)
@@ -1018,11 +1061,16 @@ class PolarWindPlot(object):
     def render_version(self):
         """Render the polarwindplot generator version string."""
 
+        if self.polar_debug:
+            logerr( "render_version" )
+
         # we only render if we have a location to put the version string
         # otherwise we have nothing to do
         if self.version_location:
             text = 'v%s' % POLAR_WIND_PLOT_VERSION
-            width, height = self.draw.textsize(text, font=self.label_font)
+
+            width, height = self.get_hw( self.polar_debug, text, self.label_font )
+
             if 'top' in self.version_location:
                 y = self.plot_border + height
             else:
@@ -1222,6 +1270,19 @@ class PolarWindPlot(object):
         else:
             return 'Legend'
 
+    @staticmethod
+    def get_hw( polar_debug, text, font ):
+        left, top, right, bottom = font.getbbox( text )
+        width = right - left
+        height = bottom - top
+
+        if polar_debug:
+            logerr( "    text = '" + text + "'" )
+            logerr( "    width = " + str(width) )
+            logerr( "    height = " + str(height) )
+
+        return width, height
+
     def get_speed_color(self, source, speed):
         """Determine the speed based colour to be used."""
 
@@ -1405,6 +1466,9 @@ class PolarWindRosePlot(PolarWindPlot):
     def render_plot(self):
         """Render the rose plot data."""
 
+        if self.polar_debug:
+            logerr( "render_plot" )
+
         # calculate the bullseye radius in pixels
         b_radius = self.bullseye * self.max_plot_dia / 2.0
         # calculate the space left in which to plot the rose 'petals'
@@ -1447,7 +1511,9 @@ class PolarWindRosePlot(PolarWindPlot):
         # produce the label
         label0 = str(int(round(100.0 * self.speed_bin[0] / sum(self.speed_bin), 0))) + '%'
         # work out its size, particularly its width
-        text_width, text_height = self.draw.textsize(label0, font=self.plot_font)
+
+        text_width, text_height = self.get_hw( self.polar_debug, label0, self.plot_font )
+
         # size the bound box
         bbox = (int(self.origin_x - b_radius),
                 int(self.origin_y - b_radius),
@@ -1932,6 +1998,9 @@ class PolarWindSpiralPlot(PolarWindPlot):
     def render_spiral_direction_label(self):
         """Render label indicating direction of the spiral."""
 
+        if self.polar_debug:
+            logerr( "render_spiral_direction_label" )
+
         # Construct the spiral direction label text. The text depends on
         # whether the newest or oldest samples are in the centre.
         if self.centre == "newest":
@@ -1941,7 +2010,9 @@ class PolarWindSpiralPlot(PolarWindPlot):
             # oldest in the center, include the date of the oldest
             _label_text = "Oldest (%s) in center" % (self.get_ring_label(0))
         # get the size of the label
-        width, height = self.draw.textsize(_label_text, font=self.label_font)
+
+        width, height = self.get_hw( self.polar_debug, _label_text, self.label_font )
+
         # Now locate the label. We follow the vertical location of the
         # timestamp label but we render on the opposite side of the plot so we
         # do not overwrite the timestamp label. If there is no timestamp label
@@ -2265,6 +2336,9 @@ class PolarWindTrailPlot(PolarWindPlot):
     def render_vector(self):
         """Render a statement of the net plotted windrun vector."""
 
+        if self.polar_debug:
+            logmsg( "render_vector" )
+
         # obtain the net windrun vector magnitude and direction
         _mag = int(round(math.sqrt(self.vector_x**2 + self.vector_y**2),
                          0))
@@ -2286,8 +2360,7 @@ class PolarWindTrailPlot(PolarWindPlot):
                                                            DEGREE_SYMBOL,
                                                            _ord_dir)
         # determine the size
-        _width, _height = self.draw.textsize(_vector_text,
-                                             font=self.label_font)
+        _width, _height = self.get_hw( self.polar_debug, _vector_text, self.label_font )
 
         # now find the location we are to use, we should already be
         # deconflicted with the timestamp location
@@ -2424,7 +2497,7 @@ class SundryTags(weewx.cheetahgenerator.SearchList):
 
 
         # create a small dictionary with the tag names (keys) we want to use
-        search_list = {'polar_version_number': POLAR_WIND_PLOT_VERSION}
+        search_list = {'polar_version_number': POLAR_WIND_PLOT_VERSION, }
 
         t2 = time.time()
         if weewx.debug >= 2:
