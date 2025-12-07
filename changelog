@@ -1,3 +1,6 @@
+4.0 7 Dec 25
+* Now includes the last Gary Roderick version of gw1000.py
+
 3.0.1 26 Oct 25
 * polarwindplot.py was using a feature removed from the latest version (12) of the Pillow PIL fork
 
