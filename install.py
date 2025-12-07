@@ -53,7 +53,7 @@ class SguWeewxInstaller(ExtensionInstaller):
                     },
                 },
             },
-            files=[('bin/user', ['bin/user/sguweewx.py', 'bin/user/polarwindplot.py']),
+            files=[('bin/user', ['bin/user/sguweewx.py', 'bin/user/polarwindplot.py', 'bin/user/gw1000.py']),
                 ('skins/SguWeewx',
                  ['skins/SguWeewx/font/FreeMonoBold.ttf',
                   'skins/SguWeewx/font/OpenSans-Regular.ttf',
