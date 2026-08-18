@@ -36,7 +36,7 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with
 this program.  If not, see https://www.gnu.org/licenses/.
 
-Version: 1.0.1										Date: 18 August 2026
+Version: 1.0.1										Date: 18 August 2026 
 
 Revision History
     18 August 2026		v1.0.1
