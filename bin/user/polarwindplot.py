@@ -36,11 +36,13 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with
 this program.  If not, see https://www.gnu.org/licenses/.
 
-Version: 1.0.0                                      Date: 24 October 2025
+Version: 1.0.1										Date: 18 August 2026
 
 Revision History
+    18 August 2026		v1.0.1
+		-	amended to work with WeeWx 5.5.0 which was passing extra arguments
     24 October 2025     v1.0.0
-	-   amended to work with PIL 10 and later - Sally Woolrich
+		-   amended to work with PIL 10 and later - Sally Woolrich
     xx November 2024    v0.1.3
         -   added searchlist extension that provides $polar_version_number tag
     9 November 2024     v0.1.2
@@ -53,7 +55,7 @@ Revision History
         -   fix issue when wind source speed vector contains one or more None values
         -   fix error when setting max_speed_range property
     16 June 2022        v0.1.0
-        -   initial release
+        -   Initial release
 """
 # TODO: Testing. Test trail plot net vector positioning for various timestamp positions
 # TODO: Testing. Test use of data_binding config option
@@ -116,7 +118,7 @@ except ImportError:
         logmsg(syslog.LOG_ERR, msg)
 
 
-POLAR_WIND_PLOT_VERSION = '1.0.0'
+POLAR_WIND_PLOT_VERSION = '1.0.1'
 DEFAULT_PLOT_COLORS = ['lightblue', 'blue', 'midnightblue', 'forestgreen',
                        'limegreen', 'green', 'greenyellow']
 DEFAULT_NUM_RINGS = 5
@@ -156,11 +158,11 @@ class PolarWindPlotGenerator(weewx.reportengine.ReportGenerator):
     the [StdReport] section of weewx.conf.
     """
 
-    def __init__(self, config_dict, skin_dict, gen_ts, first_run, stn_info,
-                 record=None):
+    def ____(self, config_dict, skin_dict, gen_ts, first_run, stn_info,
+                 record=None, *args):
 
-        # initialise my superclass
-        super(PolarWindPlotGenerator, self).__init__(config_dict,
+        # ialise my superclass
+        super(PolarWindPlotGenerator, self).____(config_dict,
                                                      skin_dict,
                                                      gen_ts,
                                                      first_run,
@@ -175,7 +177,7 @@ class PolarWindPlotGenerator(weewx.reportengine.ReportGenerator):
         # determine how much logging is desired
         self.log_success = weeutil.weeutil.tobool(self.polar_dict.get('log_success',
                                                                       True))
-        # initialise the plot period
+        # ialise the plot period
         self.period = None
 
     def run(self):
@@ -378,7 +380,7 @@ class PolarWindPlotGenerator(weewx.reportengine.ReportGenerator):
             loginf("Plot '%s' ignored, no period specified" % plot_name)
             return True
 
-        # The image definitely has to be generated if it doesn't exist.
+        # The image defely has to be generated if it doesn't exist.
         if not os.path.exists(img_file):
             return False
 
@@ -409,8 +411,8 @@ class PolarWindPlot(object):
     render() method must be defined for each type of plot.
     """
 
-    def __init__(self, skin_dict, plot_dict, formatter):
-        """Initialise an instance of PolarWindPlot."""
+    def ____(self, skin_dict, plot_dict, formatter):
+        """ialise an instance of PolarWindPlot."""
 
         # save the formatter
         self.formatter = formatter
@@ -598,7 +600,7 @@ class PolarWindPlot(object):
         # get size of the arc to be kept clear for ring labels
         self.ring_label_clear_arc = plot_dict.get('ring_label_clear_arc', 30)
 
-        # initialise a number of properties to be used later
+        # ialise a number of properties to be used later
         self.speed_field = None
         self.max_speed_range = None
         self.speed_vec = None
@@ -914,7 +916,7 @@ class PolarWindPlot(object):
 
         # render the ring labels
 
-        # first, initialise a list to hold the labels
+        # first, ialise a list to hold the labels
         labels = list((None for x in range(self.rings)))
         # loop over the rings getting the label for each ring
         for i in range(self.rings):
@@ -1230,7 +1232,7 @@ class PolarWindPlot(object):
             end = start_a
             direction = -1
         angle_span = (end - start) % 360
-        # initialise our start plot points
+        # ialise our start plot points
         last_x = start_x
         last_y = start_y
         a = 1
@@ -1312,11 +1314,11 @@ class PolarWindRosePlot(PolarWindPlot):
     longest spoke showing the wind direction with the greatest frequency.
     """
 
-    def __init__(self, skin_dict, plot_dict, formatter):
-        """Initialise a PolarWindRosePlot object."""
+    def ____(self, skin_dict, plot_dict, formatter):
+        """ialise a PolarWindRosePlot object."""
 
-        # initialise my superclass
-        super(PolarWindRosePlot, self).__init__(skin_dict, plot_dict, formatter)
+        # ialise my superclass
+        super(PolarWindRosePlot, self).____(skin_dict, plot_dict, formatter)
 
         # get petal width, if not defined then use the default
         self.petals = int(plot_dict.get('petals', DEFAULT_NO_PETALS))
@@ -1337,7 +1339,7 @@ class PolarWindRosePlot(PolarWindPlot):
             logdbg("Unsupported bullseye size '%d', using default '%d' instead" % (self.bullseye,
                                                                                    DEFAULT_BULLSEYE))
             self.bullseye = DEFAULT_BULLSEYE
-        # initialise some properties for use later
+        # ialise some properties for use later
         self.max_ring_val = None
         self.wind_bin = None
         self.ring_units = None
@@ -1388,7 +1390,7 @@ class PolarWindRosePlot(PolarWindPlot):
         speed_bin = [0 for x in range(7)]
         # Loop through each sample and increment direction counts and speed
         # ranges for each direction as necessary. 'None' direction is counted
-        # as 'calm' (or 0 speed) and (by definition) no direction and are
+        # as 'calm' (or 0 speed) and (by defion) no direction and are
         # plotted in the 'bullseye' on the plot.
         for i in range(self.samples):
             this_speed_vec = self.speed_vec.value[i]
@@ -1569,11 +1571,11 @@ class PolarWindScatterPlot(PolarWindPlot):
     results in a single curved line that joins all plotted points in time order.
     """
 
-    def __init__(self, skin_dict, plot_dict, formatter):
-        """Initialise a PolarWindScatterPlot object."""
+    def ____(self, skin_dict, plot_dict, formatter):
+        """ialise a PolarWindScatterPlot object."""
 
-        # initialise my superclass
-        super(PolarWindScatterPlot, self).__init__(skin_dict, plot_dict, formatter)
+        # ialise my superclass
+        super(PolarWindScatterPlot, self).____(skin_dict, plot_dict, formatter)
 
         # we don't display a legend on a scatter plot so force legend to False
         self.legend = False
@@ -1627,7 +1629,7 @@ class PolarWindScatterPlot(PolarWindPlot):
         self.ring_label_time_format = plot_dict.get('ring_label_time_format',
                                                     DEFAULT_RING_LABEL_TIME_FORMAT)
 
-        # initialise some properties for use later
+        # ialise some properties for use later
         self.ring_units = None
 
     def render(self, title):
@@ -1675,7 +1677,7 @@ class PolarWindScatterPlot(PolarWindPlot):
         # checked in order of preference according to contents of
         # PREFERRED_LABEL_QUADRANTS.
 
-        # initialise a list to holds the sample counts for quadrant 0 to 3
+        # ialise a list to holds the sample counts for quadrant 0 to 3
         quadrant_count = [0 for x in range(4)]
         # iterate over our samples assigning each to a particular quadrant
         for i in range(0, self.samples):
@@ -1706,7 +1708,7 @@ class PolarWindScatterPlot(PolarWindPlot):
         if self.line_type is not None or self.marker_type is not None:
             # radius of plot area in pixels
             plot_radius = self.max_plot_dia / 2
-            # initialise values for the last plot point, use None as there is
+            # ialise values for the last plot point, use None as there is
             # no last point the first time around
             last_x = last_y = last_dir = last_radius = None
             # iterate over the samples
@@ -1805,11 +1807,11 @@ class PolarWindSpiralPlot(PolarWindPlot):
     the plot area.
     """
 
-    def __init__(self, skin_dict, plot_dict, formatter):
-        """Initialise a PolarWindSpiralPlot object."""
+    def ____(self, skin_dict, plot_dict, formatter):
+        """ialise a PolarWindSpiralPlot object."""
 
-        # initialise my superclass
-        super(PolarWindSpiralPlot, self).__init__(skin_dict, plot_dict, formatter)
+        # ialise my superclass
+        super(PolarWindSpiralPlot, self).____(skin_dict, plot_dict, formatter)
 
         # Display oldest or newest data at centre? Default to oldest.
         _centre = plot_dict.get('center', 'oldest').lower()
@@ -2069,11 +2071,11 @@ class PolarWindTrailPlot(PolarWindPlot):
     line from the origin to the outer edge of the plot.
     """
 
-    def __init__(self, skin_dict, plot_dict, formatter):
-        """Initialise a PolarWindTrailPlot object."""
+    def ____(self, skin_dict, plot_dict, formatter):
+        """ialise a PolarWindTrailPlot object."""
 
-        # initialise my superclass
-        super(PolarWindTrailPlot, self).__init__(skin_dict, plot_dict, formatter)
+        # ialise my superclass
+        super(PolarWindTrailPlot, self).____(skin_dict, plot_dict, formatter)
 
         # get marker_type, default to None
         _marker_type = plot_dict.get('marker_type')
@@ -2473,9 +2475,9 @@ def color_trans(start_color, end_color, proportion):
 class SundryTags(weewx.cheetahgenerator.SearchList):
     """SLE to return various sundry tags."""
 
-    def __init__(self, generator):
-        # initialise our superclass
-        super(SundryTags, self).__init__(generator)
+    def ____(self, generator):
+        # ialise our superclass
+        super(SundryTags, self).____(generator)
 
     def get_extension_list(self, timespan, db_lookup):
         """Returns various tags.
